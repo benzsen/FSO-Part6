@@ -14,12 +14,12 @@ const AnecdoteList = () => {
           {anecdote.content}
         </div>
         <div>
-          has {anecdote.votes}
+          has {anecdote.votes} 
           <button onClick={()=>dispatch(voteAnec(anecdote.id))}>vote</button>
         </div>
       </div>
     )}
-  </div>    
+  </div>
   )
 }
 

@@ -20,8 +20,8 @@ const asObject = (anecdote) => {
 const initialState = anecdotesAtStart.map(asObject)
 
 const sortedState = (anecs) => {
-  anecs.sort((a,b) => b.votes-a.votes)
-
+  console.log(anecs);
+  return anecs.sort((a,b) => b.votes-a.votes)
 }
 
 export const voteAnec = (id) => {
@@ -47,17 +47,15 @@ const reducer = (state = initialState, action) => {
       const id = action.data.id
       const anecToVote = state.find(n => n.id === id)
       const votedAnec = {...anecToVote, votes: anecToVote.votes +1}
-      return state.map(anec =>
-        anec.id !== id ? anec : votedAnec
-      )
+      const updateVotedAnec = state.map(anec =>anec.id !== id ? anec : votedAnec)
+      return sortedState(updateVotedAnec)
 
     case "ADD":
       const newAnec = asObject(action.data.content)
-      return state.concat(newAnec)
+      return sortedState(state.concat(newAnec))
     default:
       return state
   }
-  return state
 }
 
 export default reducer
