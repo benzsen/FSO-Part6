@@ -1,4 +1,4 @@
-//Completed Part6.1-6.8
+//Completed Part6.1-6.9
 
 import React from 'react'
 import AnecdoteList from "./components/AnecdoteList"
