@@ -2,10 +2,11 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { createAnec } from '../reducers/anecdoteReducer'
-import anecService from '../services/anecdotes'
+// import anecService from '../services/anecdotes'
 
 const AnecdoteForm = () => {
   const dispatch = useDispatch()
+
   const getId = () => (100000 * Math.random()).toFixed(0)
   const asObject = (anecdote) => {
     return {
@@ -17,10 +18,10 @@ const AnecdoteForm = () => {
 
   const addAnec = async (event) => {
     event.preventDefault()
-
     const content = event.target.anec.value
     const anecAsObject = asObject(content)
-    const newAnec = await anecService.createNew(anecAsObject)
+    // const newAnec = await anecService.createNew(anecAsObject)
+    // dispatch(createAnec(anecAsObject))
     dispatch(createAnec(anecAsObject))
   }
 

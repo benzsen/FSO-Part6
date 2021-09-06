@@ -1,23 +1,4 @@
-// const anecdotesAtStart = [
-//   'If it hurts, do it more often',
-//   'Adding manpower to a late software project makes it later!',
-//   'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
-//   'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
-//   'Premature optimization is the root of all evil.',
-//   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
-// ]
-
-// const getId = () => (100000 * Math.random()).toFixed(0)
-//
-// const asObject = (anecdote) => {
-//   return {
-//     content: anecdote,
-//     id: getId(),
-//     votes: 0
-//   }
-// }
-
-// const initialState = anecdotesAtStart.map(asObject)
+import anecService from '../services/anecdotes'
 
 const sortedState = (anecs) => {
   console.log(anecs);
@@ -25,23 +6,35 @@ const sortedState = (anecs) => {
 }
 
 export const voteAnec = (id) => {
-  return {
-    type: 'VOTE',
-    data: {id}
+  return async dispatch => {
+    const anecs = await anecService.getAll()
+    const anecToVote = anecs.find(n => n.id === id)
+    const votedAnec = {...anecToVote, votes: anecToVote.votes +1}
+    const applyVote = await anecService.updateVote(id, votedAnec)
+    dispatch ({
+      type: 'VOTE',
+      data: {id}
+    })
   }
 }
 
 export const createAnec = (content) => {
-  return {
-    type: 'ADD',
-    data: {content}
+  return async dispatch => {
+    const anecs = await anecService.createNew(content)
+    dispatch({
+      type: 'ADD',
+      data: {content}
+    })
   }
 }
 
-export const initializeAnecs = (anecs) => {
-  return {
-    type: 'INIT_ANECS',
-    data: anecs,
+export const initializeAnecs = () => {
+  return async dispatch => {
+    const anecs = await anecService.getAll()
+    dispatch({
+      type: 'INIT_ANECS',
+      data: anecs,
+    })
   }
 }
 
@@ -54,8 +47,9 @@ const reducer = (state = [], action) => {
       const id = action.data.id
       const anecToVote = state.find(n => n.id === id)
       const votedAnec = {...anecToVote, votes: anecToVote.votes +1}
-      const updateVotedAnec = state.map(anec =>anec.id !== id ? anec : votedAnec)
-      return sortedState(updateVotedAnec)
+      const updateVotedAnecList = state.map(anec =>anec.id !== id ? anec : votedAnec)
+      return sortedState(updateVotedAnecList)
+      //return sortedState(action.data.updateVotedAnecList)
     case "ADD":
       //const newAnec = asObject(action.data.content)
       //return sortedState(state.concat(newAnec))
