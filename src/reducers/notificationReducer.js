@@ -15,13 +15,27 @@ export const removeNotif = (id) => {
   }
 }
 
+export const setNotification = (content, time) => {
+  return async dispatch => {
+    const displayNotif = await dispatch({
+      type: 'SHOWVOTE',
+      data: {content}
+    })
+    setTimeout(() => {
+      dispatch({
+        type: 'REMOVE'
+      })
+    }, time*1000)
+  }
+}
+
 const reducer = (state = notifStart, action) => {
   switch (action.type) {
     case "SHOWVOTE":
+      const content = action.data.content
       const id = action.data.id
       return ({
-        message:"Voted for ",
-        id: id
+        message: content,
       })
     case "REMOVE":
       return ({
