@@ -1,11 +1,16 @@
 
 import React from 'react'
-import { useSelector } from 'react-redux'
+//import { useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 
-const Notification = () => {
-  const anecdotes = useSelector(state => state.anec)
-  const notification = useSelector(state => state.notif.message)
-  const anecId = useSelector(state => state.notif.id)
+const Notification = (props) => {
+  // const anecdotes = useSelector(state => state.anec)
+  // const notification = useSelector(state => state.notif.message)
+  // const anecId = useSelector(state => state.notif.id)
+
+  const anecdotes = props.anec
+  const notification = props.notif.message
+  const anecId = props.notif.id
 
   //console.log("anecId", anecId)
 
@@ -30,4 +35,13 @@ const Notification = () => {
   )
 }
 
-export default Notification
+const mapStateToProps = (state) => {
+  return {
+    anec: state.anec,
+    notif: state.notif,
+  }
+}
+
+//export default Notification
+const ConnectedNotifs = connect(mapStateToProps)(Notification)
+export default ConnectedNotifs
