@@ -1,3 +1,4 @@
+
 import anecService from '../services/anecdotes'
 
 const sortedState = (anecs) => {
@@ -49,15 +50,10 @@ const reducer = (state = [], action) => {
       const votedAnec = {...anecToVote, votes: anecToVote.votes +1}
       const updateVotedAnecList = state.map(anec =>anec.id !== id ? anec : votedAnec)
       return sortedState(updateVotedAnecList)
-      //return sortedState(action.data.updateVotedAnecList)
     case "ADD":
-      //const newAnec = asObject(action.data.content)
-      //return sortedState(state.concat(newAnec))
-      //console.log("state", state);
       return sortedState(state.concat(action.data.content))
     case "INIT_ANECS":
-    //console.log("state", state);
-      return action.data
+      return sortedState(action.data)
     default:
       return state
   }
