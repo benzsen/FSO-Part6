@@ -5,8 +5,13 @@ import { voteNotif, removeNotif, setNotification } from "../reducers/notificatio
 import { useSelector, useDispatch } from 'react-redux'
 
 const AnecdoteList = () => {
-  const anecdotes = useSelector(state => state.anec)
+  //const anecdotes = useSelector(state => state.anec)
   const dispatch = useDispatch()
+
+  const anecdotes = useSelector(state => {
+    const filter = state.filter.toLowerCase()
+    return state.anecdotes.filter(a => a.content.toLowerCase().includes(filter))
+  })
 
   return(
   <div>
