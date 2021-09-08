@@ -1,5 +1,4 @@
-//Completed Part6.1-6.11, 6.17
-//Did not complete Part 6.12
+//Completed Part6.1-6.21
 
 import React, {useEffect} from 'react'
 import AnecdoteList from "./components/AnecdoteList"
