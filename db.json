@@ -3,7 +3,7 @@
     {
       "content": "If it hurts, do it more often",
       "id": "47145",
-      "votes": 43
+      "votes": 45
     },
     {
       "content": "Adding manpower to a late software project makes it later!",
@@ -34,16 +34,6 @@
       "content": "Creating a new anecdote ",
       "id": "20932",
       "votes": 5
-    },
-    {
-      "content": "Testing before commit",
-      "id": "70848",
-      "votes": 0
-    },
-    {
-      "content": "Testing before commit",
-      "id": "55959",
-      "votes": 0
     }
   ]
 }

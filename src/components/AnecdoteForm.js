@@ -1,13 +1,10 @@
 
 import React, { useState } from 'react'
-//import { useDispatch } from 'react-redux'
 import { createAnec } from '../reducers/anecdoteReducer'
-// import anecService from '../services/anecdotes'
 import { connect } from 'react-redux'
 import { setNotification } from "../reducers/notificationReducer"
 
 const AnecdoteForm = (props) => {
-  //const dispatch = useDispatch()
   const [anecdote, setAnecdote] = useState('')
 
   const getId = () => (100000 * Math.random()).toFixed(0)
@@ -23,8 +20,6 @@ const AnecdoteForm = (props) => {
     event.preventDefault()
     const content = event.target.anec.value
     const anecAsObject = asObject(content)
-    // const newAnec = await anecService.createNew(anecAsObject)
-    // dispatch(createAnec(anecAsObject))
     props.createAnec(anecAsObject)
     props.setNotification(`Created: '${event.target.anec.value}'`, 3)
     setAnecdote("")
