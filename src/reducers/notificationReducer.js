@@ -15,13 +15,16 @@ export const removeNotif = (id) => {
   }
 }
 
+let timeoutID
 export const setNotification = (content, time) => {
+  clearTimeout(timeoutID)
   return async dispatch => {
+
     const displayNotif = await dispatch({
       type: 'SHOWVOTE',
       data: {content}
     })
-    setTimeout(() => {
+    timeoutID = setTimeout(() => {
       dispatch({
         type: 'REMOVE'
       })
@@ -38,6 +41,7 @@ const reducer = (state = notifStart, action) => {
         message: content,
       })
     case "REMOVE":
+
       return ({
         message:"",
         id: null
